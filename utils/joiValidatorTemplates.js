@@ -2,14 +2,14 @@ const { Joi } = require('celebrate');
 
 const urlRegEx = /https*:\/\/[w{3}]*\.*[\w\-./_~:?#[\]@!$&'()*+,;=]*\.\w{2,3}[\w/]*#?/;
 
-const ruRegEx = /[a-z]/gi;
+const ruRegEx = /[a-z]/;
 
-const engRegEx = /[а-яё]/gi;
+const engRegEx = /[а-яё]/;
 
 const updateUserInfoJoi = {
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30).required(),
-    email: Joi.string().email().required(),
+    name: Joi.string().min(2).max(30),
+    email: Joi.string().email(),
   }),
 };
 

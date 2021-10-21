@@ -15,7 +15,7 @@ const signin = (req, res, next) => {
         { expiresIn: '1d' },
       );
       res.cookie('token', jwtToken, {
-        maxAge: 60 * 60 * 60,
+        maxAge: 3600000 * 24 * 7,
         httpOnly: true,
       });
       res.send({ message: 'loggedIn' });

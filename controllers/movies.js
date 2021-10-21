@@ -56,7 +56,7 @@ const addMovie = (req, res, next) => {
   })
     .then((newMovieData) => res.send(newMovieData))
     .catch((err) => {
-      if (err.name === 'ValidationError') throw new BadRequestError('Ошибка валидации вводимых данных');
+      if (err.name === 'ValidationError') throw new BadRequestError(err.message);
       next(err);
     })
     .catch(next);

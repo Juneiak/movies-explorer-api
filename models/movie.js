@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const ruValidation = (text) => !text.match(/[a-z]/gi);
+const ruValidation = (text) => !text.match(/[a-z]/);
 
-const engValidation = (text) => !text.match(/[а-яё]/gi);
+const engValidation = (text) => !text.match(/[а-яё]/);
 
-const urlValidation = (url) => validator.isUrl(url);
+const urlValidation = (url) => validator.isURL(url);
 
 const movieSchema = new mongoose.Schema({
   country: {

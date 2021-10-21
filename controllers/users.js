@@ -23,7 +23,7 @@ const updateUserInfo = (req, res, next) => {
     .orFail(new NotFoundError('Пользователь не найден'))
     .then((updatedUserInfo) => res.send({
       email: updatedUserInfo.email,
-      name: updatedUserInfo,
+      name: updatedUserInfo.name,
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') throw new BadRequestError('Ошибка валидации вводимых данных');
