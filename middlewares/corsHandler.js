@@ -1,5 +1,8 @@
 const allowedLinks = [
-  '',
+  'http://api.juneiak.movieproject.nomoredomains.monster',
+  'https://api.juneiak.movieproject.nomoredomains.monster',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
 ];
 
 const corsHandler = (req, res, next) => {
