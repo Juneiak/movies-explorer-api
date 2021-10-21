@@ -26,6 +26,7 @@ const deleteMovie = (req, res, next) => {
 };
 
 const addMovie = (req, res, next) => {
+  const { _id } = req.user;
   const {
     country,
     director,
@@ -40,6 +41,7 @@ const addMovie = (req, res, next) => {
     movieId,
   } = req.body;
   Movies.create({
+    owner: _id,
     country,
     director,
     duration,
