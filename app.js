@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
+const apiLimiter = require('./middlewares/apiLimiter');
 const indexRouter = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./middlewares/errorsHandler');
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(helmet());
 
 app.use(requestLogger);
+app.use(apiLimiter);
 app.use('', indexRouter);
 
 app.use(errorLogger);
