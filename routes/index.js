@@ -14,7 +14,7 @@ indexRouter.get('/signout', checkAuth, signout);
 indexRouter.use('/users', checkAuth, usersRoutes);
 indexRouter.use('/movies', checkAuth, moviesRoutes);
 
-indexRouter.use('*', (req, res, next) => {
+indexRouter.use('*', checkAuth, (req, res, next) => {
   next(new NotFoundError('Запрашиваемый ресурс не найден'));
 });
 

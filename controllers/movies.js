@@ -3,7 +3,6 @@ const { BadRequestError, NotFoundError, ForbiddenError } = require('../utils/cus
 
 const getMovies = (req, res, next) => {
   Movies.find({})
-    .populate(['owner'])
     .then((movies) => res.send(movies))
     .catch(next);
 };
@@ -21,6 +20,7 @@ const deleteMovie = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') throw new BadRequestError('Ошибка валидации вводимых данных');
       if (err.name === 'CastError') throw new BadRequestError('Ошибка валидации id');
+      next(err);
     })
     .catch(next);
 };

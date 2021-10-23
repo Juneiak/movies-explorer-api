@@ -10,10 +10,10 @@ const indexRouter = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./middlewares/errorsHandler');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, DB_URL, NODE_ENV } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? DB_URL : 'mongodb://localhost:27017/moviesdb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

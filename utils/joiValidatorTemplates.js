@@ -1,15 +1,20 @@
 const { Joi } = require('celebrate');
-
-const urlRegEx = /https*:\/\/[w{3}]*\.*[\w\-./_~:?#[\]@!$&'()*+,;=]*\.\w{2,3}[\w/]*#?/;
+const validator = require('validator');
 
 const ruRegEx = /[a-z]/;
-
 const engRegEx = /[а-яё]/;
+const ruNameRegEx = /[А-ЯЁ]{1}[а-яё]{1,29}/;
+
+const urlValidation = (value, helpers) => {
+  if (validator.isURL(value)) return value;
+  return helpers.message('неверный формат url');
+};
 
 const updateUserInfoJoi = {
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().email(),
+    name: Joi.string().min(2).max(30).required()
+      .pattern(ruNameRegEx),
+    email: Joi.string().email().required(),
   }),
 };
 
@@ -24,7 +29,8 @@ const signupJoi = {
   body: Joi.object().keys({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-    name: Joi.string().min(2).max(30).required(),
+    name: Joi.string().min(2).max(30).required()
+      .pattern(ruNameRegEx),
   }),
 };
 
@@ -41,12 +47,12 @@ const addMovieJoi = {
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(urlRegEx),
-    trailer: Joi.string().required().pattern(urlRegEx),
+    image: Joi.string().required().custom(urlValidation),
+    trailer: Joi.string().required().custom(urlValidation),
     nameRU: Joi.string().required().pattern(ruRegEx, { invert: true }),
     nameEN: Joi.string().required().pattern(engRegEx, { invert: true }),
-    thumbnail: Joi.string().required().pattern(urlRegEx),
-    movieId: Joi.string().required(),
+    thumbnail: Joi.string().required().custom(urlValidation),
+    movieId: Joi.number().required(),
   }),
 };
 

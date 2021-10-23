@@ -1,5 +1,5 @@
 const Users = require('../models/user');
-const { NotFoundError, BadRequestError } = require('../utils/customErrors/index');
+const { NotFoundError, BadRequestError, ConflictError } = require('../utils/customErrors/index');
 
 const getUserInfo = (req, res, next) => {
   const { _id } = req.user;
@@ -26,6 +26,7 @@ const updateUserInfo = (req, res, next) => {
       name: updatedUserInfo.name,
     }))
     .catch((err) => {
+      if (err.name === 'MongoServerError' && err.code === 11000) throw new ConflictError('Данный email уже зарегистрирован');
       if (err.name === 'ValidationError') throw new BadRequestError('Ошибка валидации вводимых данных');
       if (err.name === 'CastError') throw new BadRequestError('Ошибка валидации id');
       next(err);

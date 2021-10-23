@@ -31,16 +31,14 @@ const signin = (req, res, next) => {
 const signup = (req, res, next) => {
   const { name, password, email } = req.body;
   bcrypt.hash(password, 10)
-    .then((hash) => {
-      Users.create({
-        password: hash,
-        email,
-        name,
-      });
-    })
+    .then((hash) => Users.create({
+      password: hash,
+      email,
+      name,
+    }))
     .then(() => res.send({ message: 'registerd' }))
     .catch((err) => {
-      if (err.name === 'MongoError' && err.code === 1100) throw new ConflictError('Данный email уже зарегистрирован');
+      if (err.name === 'MongoServerError' && err.code === 1100) throw new ConflictError('Данный email уже зарегистрирован');
       if (err.name === 'ValidationError') throw new BadRequestError('Ошибка валидации вводимых данных');
       next(err);
     })
