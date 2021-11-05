@@ -9,6 +9,7 @@ const apiLimiter = require('./middlewares/apiLimiter');
 const indexRouter = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorsHandler = require('./middlewares/errorsHandler');
+const corsHandler = require('./middlewares/corsHandler');
 
 const { PORT = 3000, DB_URL, NODE_ENV } = process.env;
 const app = express();
@@ -17,7 +18,7 @@ mongoose.connect(NODE_ENV === 'production' ? DB_URL : 'mongodb://localhost:27017
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+app.use(corsHandler);
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
