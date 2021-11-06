@@ -9,6 +9,7 @@ const corsHandler = (req, res, next) => {
   const { headers, method } = req;
   if (allowedLinks.includes(headers.origin)) {
     res.header('Access-Control-Allow-Origin', headers.origin);
+    res.header('Access-Control-Allow-Credentials', 'true');
   }
   if (method === 'OPTIONS') {
     const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
