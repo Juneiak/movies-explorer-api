@@ -18,6 +18,8 @@ const signin = (req, res, next) => {
       res.cookie('token', jwtToken, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
+        sameSite: 'none',
+        secure: true,
       });
       res.send({ message: 'loggedIn' });
     })
