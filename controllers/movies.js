@@ -2,18 +2,20 @@ const Movies = require('../models/movie');
 const { BadRequestError, NotFoundError, ForbiddenError } = require('../utils/customErrors/index');
 
 const getMovies = (req, res, next) => {
-  Movies.find({})
+  const { _id } = req.user;
+
+  Movies.find({ owner: _id })
     .then((movies) => res.send(movies))
     .catch(next);
 };
 const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const { _id } = req.user;
-  Movies.findById(movieId)
+  Movies.findOne(movieId)
     .orFail(new NotFoundError('Фильм не найден'))
     .then((movie) => {
       if (movie.owner.toString() === _id) {
-        Movies.findByIdAndRemove(movieId)
+        Movies.findOneAndDelete(movieId)
           .then((deletedMovie) => res.send(deletedMovie));
       } else throw new ForbiddenError('У вас нету прав на удаление этого фильма');
     })
