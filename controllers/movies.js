@@ -11,11 +11,11 @@ const getMovies = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const { _id } = req.user;
-  Movies.findOne(movieId)
+  Movies.findOne({ movieId, owner: _id })
     .orFail(new NotFoundError('Фильм не найден'))
     .then((movie) => {
       if (movie.owner.toString() === _id) {
-        Movies.findOneAndDelete(movieId)
+        Movies.findOneAndDelete({ movieId })
           .then((deletedMovie) => res.send(deletedMovie));
       } else throw new ForbiddenError('У вас нету прав на удаление этого фильма');
     })

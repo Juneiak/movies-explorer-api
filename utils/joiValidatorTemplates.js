@@ -1,7 +1,6 @@
 const { Joi } = require('celebrate');
 const validator = require('validator');
 
-const ruRegEx = /[a-z]/;
 const engRegEx = /[а-яё]/;
 const ruNameRegEx = /[А-ЯЁ]{1}[а-яё]{1,29}/;
 
@@ -49,7 +48,7 @@ const addMovieJoi = {
     description: Joi.string().required(),
     image: Joi.string().required().custom(urlValidation),
     trailer: Joi.string().required().custom(urlValidation),
-    nameRU: Joi.string().required().pattern(ruRegEx, { invert: true }),
+    nameRU: Joi.string().required(),
     nameEN: Joi.string().required().pattern(engRegEx, { invert: true }),
     thumbnail: Joi.string().required().custom(urlValidation),
     movieId: Joi.number().required(),
