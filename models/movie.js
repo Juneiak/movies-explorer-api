@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const ruValidation = (text) => !text.match(/[a-z]/);
-
 const engValidation = (text) => !text.match(/[а-яё]/);
 
 const urlValidation = (url) => validator.isURL(url);
@@ -55,7 +53,6 @@ const movieSchema = new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
-    validate: [ruValidation, 'language validationError (RU)'],
   },
   nameEN: {
     type: String,
