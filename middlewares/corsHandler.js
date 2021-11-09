@@ -1,6 +1,6 @@
 const allowedLinks = [
-  'http://juneiak.movieproject.nomoredomains.monster',
-  'https://juneiak.movieproject.nomoredomains.monster',
+  'http://juneiak.movieproject.nomoredomains.rocks',
+  'https://juneiak.movieproject.nomoredomains.rocks',
   'http://localhost:3000',
   'http://127.0.0.1:3000',
 ];
