@@ -3,5 +3,3 @@
 
 api - https://api.juneiak.movieproject.nomoredomains.monster
 лимит запросов - 100/15мин
-
-Публичный IPv4 - 62.84.116.179
